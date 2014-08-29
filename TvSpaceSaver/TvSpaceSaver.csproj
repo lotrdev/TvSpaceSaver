@@ -35,19 +35,19 @@
   <ItemGroup>
     <Reference Include="Common.Utils, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\MediaPortalDLLs\Common.Utils.dll</HintPath>
+      <HintPath>inc\Common.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Gentle.Common">
-      <HintPath>..\..\MediaPortalDLLs\Gentle.Common.dll</HintPath>
+      <HintPath>inc\Gentle.Common.dll</HintPath>
     </Reference>
     <Reference Include="Gentle.Framework">
-      <HintPath>..\..\MediaPortalDLLs\Gentle.Framework.dll</HintPath>
+      <HintPath>inc\Gentle.Framework.dll</HintPath>
     </Reference>
     <Reference Include="PluginBase">
-      <HintPath>..\..\MediaPortalDLLs\PluginBase.dll</HintPath>
+      <HintPath>inc\PluginBase.dll</HintPath>
     </Reference>
     <Reference Include="SetupControls">
-      <HintPath>..\..\MediaPortalDLLs\SetupControls.dll</HintPath>
+      <HintPath>inc\SetupControls.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -56,19 +56,19 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="TvBusinessLayer">
-      <HintPath>..\..\MediaPortalDLLs\TvBusinessLayer.dll</HintPath>
+      <HintPath>inc\TvBusinessLayer.dll</HintPath>
     </Reference>
     <Reference Include="TvControl">
-      <HintPath>..\..\MediaPortalDLLs\TvControl.dll</HintPath>
+      <HintPath>inc\TvControl.dll</HintPath>
     </Reference>
     <Reference Include="TVDatabase">
-      <HintPath>..\..\MediaPortalDLLs\TVDatabase.dll</HintPath>
+      <HintPath>inc\TVDatabase.dll</HintPath>
     </Reference>
     <Reference Include="TvLibrary.Interfaces">
-      <HintPath>..\..\MediaPortalDLLs\TvLibrary.Interfaces.dll</HintPath>
+      <HintPath>inc\TvLibrary.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="TvLibrary.Utils">
-      <HintPath>..\..\MediaPortalDLLs\TvLibrary.Utils.dll</HintPath>
+      <HintPath>inc\TvLibrary.Utils.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
