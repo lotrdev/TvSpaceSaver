@@ -18,8 +18,13 @@ namespace TvEngine
         private const bool DefaultImmideately = true;
         private const bool DefaultRunInHours = false;
         private const int DefaultNumberOfHours = 3;
-        private const string DefaultProgram = "C:\\Program Files\\Handbrake\\Handbrake.exe";
-        private const string DefaultParameters = "";//"\"{0}\"";
+        private const string DefaultCompressProg = "C:\\Program Files\\Handbrake\\HandbrakeCLI.exe";
+        private const string DefaultCompressParam = "-i \"{0}\" -o {3}\\{2}.mkv";
+        private const string DefaultComSkipProg = "Comskip.exe";
+        private const string DefaultComSkipParam = "--zpcut \"{0}\"";
+        private const string DefaultMkvMergeProg = "MkvMerge.exe";
+        private const bool DefaultCutCommercials = true;
+        private const bool DefaultCommercialChapters = false;
 
         #endregion Constants
 
@@ -28,8 +33,13 @@ namespace TvEngine
         private static bool _immediately = DefaultImmideately;
         private static bool _runInHours = DefaultRunInHours;
         private static int _numberOfHours = DefaultNumberOfHours;
-        private static string _program = DefaultProgram;
-        private static string _parameters = DefaultParameters;
+        private static string _compressProg = DefaultCompressProg;
+        private static string _compressParam = DefaultCompressParam;
+        private static string _comSkipProg = DefaultComSkipProg;
+        private static string _comSkipParam = DefaultComSkipParam;
+        private static string _mkvMergeProg = DefaultMkvMergeProg;
+        private static bool _cutCommercials = DefaultCutCommercials;
+        private static bool _commercialsChapters = DefaultCommercialChapters;
 
         #endregion Members
 
@@ -88,14 +98,14 @@ namespace TvEngine
 
         internal static string CompressionProgram
         {
-            get { return _program; }
-            set { _program = value; }
+            get { return _compressProg; }
+            set { _compressProg = value; }
         }
 
         internal static string CompressionParameters
         {
-            get { return _parameters; }
-            set { _parameters = value; }
+            get { return _compressParam; }
+            set { _compressParam = value; }
         }
 
         #endregion Properties
@@ -142,12 +152,12 @@ namespace TvEngine
                 {
                     Channel channel = Channel.Retrieve(tvEvent.Recording.IdChannel);
 
-                    string parameters = ProcessParameters(_parameters, tvEvent.Recording.FileName, channel.DisplayName);
+                    string parameters = ProcessParameters(_compressParam, tvEvent.Recording.FileName, channel.DisplayName, "");
 
                     Log.Info("TvSpaceSaver: Recording ended ({0} on {1}), launching program ({2} {3}) ...",
-                             tvEvent.Recording.FileName, channel.DisplayName, _program, parameters);
+                             tvEvent.Recording.FileName, channel.DisplayName, _compressProg, parameters);
 
-                    LaunchProcess(_program, parameters, Path.GetDirectoryName(_program), ProcessWindowStyle.Hidden);
+                    LaunchProcess(_compressProg, parameters, Path.GetDirectoryName(_compressProg), ProcessWindowStyle.Hidden);
                 }
             }
             catch (Exception ex)
@@ -165,13 +175,13 @@ namespace TvEngine
                 _immediately = Convert.ToBoolean(layer.GetSetting("TvSpaceSaver_Immediately", DefaultImmideately.ToString()).Value);
                 _runInHours = Convert.ToBoolean(layer.GetSetting("TvSpaceSaver_RunInHours", DefaultRunInHours.ToString()).Value);
                 _numberOfHours = Convert.ToInt32(layer.GetSetting("TvSpaceSaver_NumberOfHours", DefaultNumberOfHours.ToString()).Value);
-                _program = layer.GetSetting("TvSpaceSaver_Program", DefaultProgram).Value;
-                _parameters = layer.GetSetting("TvSpaceSaver_Parameters", DefaultParameters).Value;
+                _compressProg = layer.GetSetting("TvSpaceSaver_Program", DefaultCompressProg).Value;
+                _compressParam = layer.GetSetting("TvSpaceSaver_Parameters", DefaultCompressParam).Value;
             }
             catch (Exception ex)
             {
-                _program = DefaultProgram;
-                _parameters = DefaultParameters;
+                _compressProg = DefaultCompressProg;
+                _compressParam = DefaultCompressParam;
 
                 Log.Error("TvSpaceSaver - LoadSettings(): {0}", ex.Message);
             }
@@ -196,11 +206,11 @@ namespace TvEngine
                 setting.Persist();
                 
                 setting = layer.GetSetting("TvSpaceSaver_Program");
-                setting.Value = _program;
+                setting.Value = _compressProg;
                 setting.Persist();
 
                 setting = layer.GetSetting("TvSpaceSaver_Parameters");
-                setting.Value = _parameters;
+                setting.Value = _compressParam;
                 setting.Persist();
             }
             catch (Exception ex)
@@ -209,7 +219,7 @@ namespace TvEngine
             }
         }
 
-        internal static string ProcessParameters(string input, string fileName, string channel)
+        internal static string ProcessParameters(string input, string fileName, string channel, string other)
         {
             string output = String.Empty;
 
@@ -223,7 +233,8 @@ namespace TvEngine
                   Path.GetDirectoryName(fileName), // {3} = Recorded file path
                   DateTime.Now.ToShortDateString(), // {4} = Current date
                   DateTime.Now.ToShortTimeString(), // {5} = Current time
-                  channel // {6} = Channel name
+                  channel, // {6} = Channel name
+                  other // {7} = extra param
                   );
             }
             catch (Exception ex)
@@ -234,7 +245,7 @@ namespace TvEngine
             return output;
         }
 
-        internal static Process LaunchProcess(string program, string parameters, string workingFolder,
+        internal static int LaunchProcess(string program, string parameters, string workingFolder,
                                            ProcessWindowStyle windowStyle)
         {
             Process process = new Process();
@@ -252,93 +263,157 @@ namespace TvEngine
                 }
 
                 process.Start();
+                process.WaitForExit();
+
             }
             catch (Exception ex)
             {
                 Log.Error("TvSpaceSaver - LaunchProcess(): {0}", ex.Message);
             }
 
-            return process;
+            return process.ExitCode;
         }
 
-        public static void ProcessCommercials(string fileName)
+        public static void ProcessRecording(string fileName)
         {
-            string cutFile = Path.GetDirectoryName(fileName) + "\\" + Path.GetFileNameWithoutExtension(fileName) + ".cut";
+            int result = 0;
+            string fullPathWithoutExt = Path.GetDirectoryName(fileName) + "\\" + Path.GetFileNameWithoutExtension(fileName);
 
-            if (!File.Exists(cutFile))
+            // Compress .ts file into a .mkv file
+            if (!File.Exists(fullPathWithoutExt + ".mkv"))
             {
-                Process comSkip = LaunchProcess("ComSkip.exe", "--zpcut \"" + fileName + "\"", Path.GetDirectoryName(fileName), ProcessWindowStyle.Normal);
+                string compressParam = ProcessParameters(_compressParam, fileName, "", "");
 
-                //Wait for the process to end.
-                //comSkip.WaitForInputIdle(); //Only use for GUI programs
-                comSkip.WaitForExit();
+                result = LaunchProcess(_compressProg, compressParam, Path.GetDirectoryName(fileName), ProcessWindowStyle.Normal);
+
+                if (result != 0)
+                {
+                    Log.Error("TvSpaceSaver - {0} encountered error: {1}", _compressProg, result);
+                    return;
+                }
             }
 
-            if (File.Exists(cutFile))
+            if (_cutCommercials || _commercialsChapters)
             {
-                List<string> chapters = new List<string>();
-                string[] lines = System.IO.File.ReadAllLines(cutFile);
-
-                foreach (string line in lines)
+                // Use ComSkip to generate .cut file
+                if (!File.Exists(fullPathWithoutExt + ".cut"))
                 {
-                    // Use a tab to indent each line of the file.
-                    int first = line.IndexOf("=") + 1;
-                    int last = line.LastIndexOf("=") + 1;
-                    string cut1 = line.Substring(first, line.IndexOf("\",") - first);
-                    string cut2 = line.Substring(last, line.LastIndexOf("\"") - last);
+                    string comSkipParam = ProcessParameters(_comSkipParam, fileName, "", "");
 
-                    // Cut from beginning if first commercial is within the first second
-                    if (Double.Parse(cut1) < 1.0)
-                        chapters.Add(ConvertSecondsToTimeCode("0.0000"));
-                    else
-                        chapters.Add(ConvertSecondsToTimeCode(cut1));
+                    result = LaunchProcess(_comSkipProg, comSkipParam, Path.GetDirectoryName(fileName), ProcessWindowStyle.Normal);
 
-
-                    chapters.Add(ConvertSecondsToTimeCode(cut2));
-                }
-
-                // Create mkvmerge split locations
-                string split = " \"--split\" \"parts:";
-
-                int i = 0;
-                foreach (string chapter in chapters)
-                {
-                    if (i == 0 && chapter != ConvertSecondsToTimeCode("0.0000"))
+                    if (result == 0)
                     {
-                        split += ConvertSecondsToTimeCode("0.0000") + "-" + chapter + ",";
+                        Log.Error("TvSpaceSaver - ComSkip.exe no commercials found.");
+                        return;
                     }
-                    else if (i > 0) {
-                        split += chapter;
-
-                        if (i % 2 == 0)
-                            split += ",";
-                        else
-                            split += "-";
+                    else if (result != 1)
+                    {
+                        Log.Error("TvSpaceSaver - {0} encountered error: {1}", _comSkipProg, result);
+                        return;
                     }
-
-                    i++;
                 }
-                split += "\"";
-                string fullParam = " -o output.mkv" + split + " \"" + fileName + "\"";
 
-                LaunchProcess("mkvmerge.exe", fullParam, Path.GetDirectoryName(fileName), ProcessWindowStyle.Normal);
-            }
-            else
-            {
-                Log.Error("TvSpaceSaver - ComSkip.exe failed to create cut file");
+                // Get commercial start and stop points
+                List<string> chapters = ProcessCutFile(fullPathWithoutExt + ".cut");
+
+                // Cut commercials out of the final MKV file
+                if (_cutCommercials)
+                {
+                    string mkvSplitParam = ProcessParameters(" -o {3}\\{2}_split.mkv {7} \"{3}\\{2}.mkv\"", fileName, "", ProcessSplitParam(chapters));
+
+                    result = LaunchProcess(_mkvMergeProg, mkvSplitParam, Path.GetDirectoryName(fileName), ProcessWindowStyle.Normal);
+
+                    if (result == 0)
+                    {
+
+                        mkvSplitParam = ProcessParameters(" -o {3}\\{2}_final.mkv {7}", fileName, "", ProcessJoinParam(fileName));
+
+                        result = LaunchProcess(_mkvMergeProg, mkvSplitParam, Path.GetDirectoryName(fileName), ProcessWindowStyle.Normal);
+
+                        if (result != 0)/*Log.Error(*/
+                            Console.WriteLine("TvSpaceSaver - {0} encountered error: {1}", _mkvMergeProg, result);
+
+                    }
+                    else
+                    {
+                        /*Log.Error(*/
+                        Console.WriteLine("TvSpaceSaver - {0} encountered error: {1}", _mkvMergeProg, result);
+                    }
+                }
+                // Set chapter markers based on commercials
+                else if (_commercialsChapters)
+                {
+                    //TODO: Implement code to add chapters for each commercial start and end
+                }
             }
         }
 
-        internal static string FormatTimeSpan(TimeSpan span)
+        internal static List<string> ProcessCutFile(string fileName)
         {
-            string retVal = span.ToString();
+            List<string> chapters = new List<string>();
+            string[] lines = System.IO.File.ReadAllLines(fileName);
 
-            if (retVal.LastIndexOf(".") == -1)
+            foreach (string line in lines)
             {
-                retVal += ".0000000";
+                // Use a tab to indent each line of the file.
+                int first = line.IndexOf("=") + 1;
+                int last = line.LastIndexOf("=") + 1;
+                string cut1 = line.Substring(first, line.IndexOf("\",") - first);
+                string cut2 = line.Substring(last, line.LastIndexOf("\"") - last);
+
+                // Cut from beginning if first commercial is within the first second
+                if (Double.Parse(cut1) < 1.0)
+                    chapters.Add(ConvertSecondsToTimeCode("0.0000"));
+                else
+                    chapters.Add(ConvertSecondsToTimeCode(cut1));
+
+
+                chapters.Add(ConvertSecondsToTimeCode(cut2));
             }
 
-            return retVal;
+            return chapters;
+        }
+
+        internal static string ProcessSplitParam(List<string> chapters)
+        {
+            // Create mkvmerge split locations
+            string split = " \"--split\" \"parts:";
+
+            int i = 0;
+            foreach (string chapter in chapters)
+            {
+                if (i == 0 && chapter != ConvertSecondsToTimeCode("0.0000"))
+                {
+                    split += ConvertSecondsToTimeCode("0.0000") + "-" + chapter + ",";
+                }
+                else if (i > 0) {
+                    split += chapter;
+
+                    if (i % 2 == 0)
+                        split += ",";
+                    else
+                        split += "-";
+                }
+
+                i++;
+            }
+            return split + "\"";
+        }
+
+        internal static string ProcessJoinParam(string fileName)
+        {
+            string[] files = Directory.GetFiles(Path.GetDirectoryName(fileName), Path.GetFileNameWithoutExtension(fileName) + "_split*.mkv");
+            string appendParam = "";
+            foreach (string file in files)
+            {
+                if (file != files[0])
+                    appendParam += "+";
+
+                appendParam += "\"" + file + "\" ";
+            }
+
+            return appendParam;
         }
 
         internal static string ConvertSecondsToTimeCode(string time)

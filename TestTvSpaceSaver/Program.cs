@@ -10,7 +10,7 @@ namespace TestTvSpaceSaver
     {
         static void Main(string[] args)
         {
-            TvSpaceSaver.ProcessCommercials("C:\\Users\\Public\\Recorded TV\\test\\splitTest.mkv");
+            TvSpaceSaver.ProcessRecording("");
         }
     }
 }
