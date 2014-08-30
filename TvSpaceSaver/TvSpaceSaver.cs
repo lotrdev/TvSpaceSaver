@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Collections.Generic;
 using System.IO;
 using SetupTv;
 using TvLibrary.Log;
@@ -17,7 +18,7 @@ namespace TvEngine
         private const bool DefaultImmideately = true;
         private const bool DefaultRunInHours = false;
         private const int DefaultNumberOfHours = 3;
-        private const string DefaultProgram = "C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe";
+        private const string DefaultProgram = "C:\\Program Files\\Handbrake\\Handbrake.exe";
         private const string DefaultParameters = "";//"\"{0}\"";
 
         #endregion Constants
@@ -233,12 +234,13 @@ namespace TvEngine
             return output;
         }
 
-        internal static void LaunchProcess(string program, string parameters, string workingFolder,
+        internal static Process LaunchProcess(string program, string parameters, string workingFolder,
                                            ProcessWindowStyle windowStyle)
         {
+            Process process = new Process();
+
             try
             {
-                Process process = new Process();
                 process.StartInfo = new ProcessStartInfo();
                 process.StartInfo.Arguments = parameters;
                 process.StartInfo.FileName = program;
@@ -255,6 +257,96 @@ namespace TvEngine
             {
                 Log.Error("TvSpaceSaver - LaunchProcess(): {0}", ex.Message);
             }
+
+            return process;
+        }
+
+        public static void ProcessCommercials(string fileName)
+        {
+            string cutFile = Path.GetDirectoryName(fileName) + "\\" + Path.GetFileNameWithoutExtension(fileName) + ".cut";
+
+            if (!File.Exists(cutFile))
+            {
+                Process comSkip = LaunchProcess("ComSkip.exe", "--zpcut \"" + fileName + "\"", Path.GetDirectoryName(fileName), ProcessWindowStyle.Normal);
+
+                //Wait for the process to end.
+                //comSkip.WaitForInputIdle(); //Only use for GUI programs
+                comSkip.WaitForExit();
+            }
+
+            if (File.Exists(cutFile))
+            {
+                List<string> chapters = new List<string>();
+                string[] lines = System.IO.File.ReadAllLines(cutFile);
+
+                foreach (string line in lines)
+                {
+                    // Use a tab to indent each line of the file.
+                    int first = line.IndexOf("=") + 1;
+                    int last = line.LastIndexOf("=") + 1;
+                    string cut1 = line.Substring(first, line.IndexOf("\",") - first);
+                    string cut2 = line.Substring(last, line.LastIndexOf("\"") - last);
+
+                    // Cut from beginning if first commercial is within the first second
+                    if (Double.Parse(cut1) < 1.0)
+                        chapters.Add(ConvertSecondsToTimeCode("0.0000"));
+                    else
+                        chapters.Add(ConvertSecondsToTimeCode(cut1));
+
+
+                    chapters.Add(ConvertSecondsToTimeCode(cut2));
+                }
+
+                // Create mkvmerge split locations
+                string split = " \"--split\" \"parts:";
+
+                int i = 0;
+                foreach (string chapter in chapters)
+                {
+                    if (i == 0 && chapter != ConvertSecondsToTimeCode("0.0000"))
+                    {
+                        split += ConvertSecondsToTimeCode("0.0000") + "-" + chapter + ",";
+                    }
+                    else if (i > 0) {
+                        split += chapter;
+
+                        if (i % 2 == 0)
+                            split += ",";
+                        else
+                            split += "-";
+                    }
+
+                    i++;
+                }
+                split += "\"";
+                string fullParam = " -o output.mkv" + split + " \"" + fileName + "\"";
+
+                LaunchProcess("mkvmerge.exe", fullParam, Path.GetDirectoryName(fileName), ProcessWindowStyle.Normal);
+            }
+            else
+            {
+                Log.Error("TvSpaceSaver - ComSkip.exe failed to create cut file");
+            }
+        }
+
+        internal static string FormatTimeSpan(TimeSpan span)
+        {
+            string retVal = span.ToString();
+
+            if (retVal.LastIndexOf(".") == -1)
+            {
+                retVal += ".0000000";
+            }
+
+            return retVal;
+        }
+
+        internal static string ConvertSecondsToTimeCode(string time)
+        {
+            string[] parts = time.Split('.');
+            TimeSpan timeCode = TimeSpan.FromSeconds(int.Parse(parts[0]));
+            
+            return string.Format("{0:D2}:{1:D2}:{2:D2}:{3}", timeCode.Hours, timeCode.Minutes, timeCode.Seconds, parts[1]);
         }
 
         #endregion Implementation
