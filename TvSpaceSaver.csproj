@@ -49,6 +49,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Utils">
+      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Common.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="Gentle.Common, Version=1.5.0.29113, Culture=neutral, PublicKeyToken=80b5de62e27be49b, processorArchitecture=MSIL">
       <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Gentle.Common.dll</HintPath>
       <Private>True</Private>
@@ -95,6 +98,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestTvSpaceSaver\Program.cs" />
     <Compile Include="TvSpaceSaver\TvSpaceSaver.cs" />
     <Compile Include="TvSpaceSaver\TvSpaceSaverSetup.cs">
