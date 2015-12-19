@@ -23,6 +23,7 @@ namespace TvEngine
         private const string DefaultComSkipProg = "C:\\Program Files (x86)\\ComSkip\\Comskip.exe";
         private const string DefaultComSkipParam = "--zpcut \"{0}\"";
         private const string DefaultMkvMergeProg = "C:\\Program Files\\MKVToolNix\\MkvMerge.exe";
+        private const string DefaultMkvPropEditProg = "C:\\Program Files\\MKVToolNix\\MkvPropEdit.exe";
         private const bool DefaultCutCommercials = false;
 
         #endregion Constants
@@ -37,6 +38,7 @@ namespace TvEngine
         private static string _comSkipProg = DefaultComSkipProg;
         private static string _comSkipParam = DefaultComSkipParam;
         private static string _mkvMergeProg = DefaultMkvMergeProg;
+        private static string _mkvPropEditProg = DefaultMkvPropEditProg;
         private static bool _cutCommercials = DefaultCutCommercials;
 
         #endregion Members
@@ -255,10 +257,10 @@ namespace TvEngine
                 process.StartInfo.FileName = program;
                 process.StartInfo.WindowStyle = windowStyle;
                 process.StartInfo.WorkingDirectory = workingFolder;
-                if (OSInfo.OSInfo.VistaOrLater())
-                {
-                    process.StartInfo.Verb = "runas";
-                }
+                //if (OSInfo.OSInfo.VistaOrLater())
+                //{
+                //    process.StartInfo.Verb = "runas";
+                //}
 
                 process.Start();
                 process.WaitForExit();
@@ -342,12 +344,12 @@ namespace TvEngine
             {
                 string chapterFile = Path.GetDirectoryName(fileName) + "\\" + Path.GetFileNameWithoutExtension(fileName) + "_chapters.txt";
                 ProcessChapters(chapters, chapterFile);
-                string mkvParam = ProcessParameters(" -o \"{3}\\{2}.mkv\" \"--chapters\" \"{7}\"", fileName, "", chapterFile);
+                string mkvParam = ProcessParameters("\"--chapters\" \"{7}\" \"{3}\\{2}.mkv\"", fileName, "", chapterFile);
 
-                result = LaunchProcess(_mkvMergeProg, mkvParam, Path.GetDirectoryName(fileName), ProcessWindowStyle.Normal);
+                result = LaunchProcess(_mkvPropEditProg, mkvParam, Path.GetDirectoryName(fileName), ProcessWindowStyle.Normal);
 
                 if (result != 0)
-                    Log.Error("TvSpaceSaver - {0} encountered error: {1}", _mkvMergeProg, result);
+                    Log.Error("TvSpaceSaver - {0} encountered error: {1}", _mkvPropEditProg, result);
             }
         }
 
