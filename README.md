@@ -19,4 +19,4 @@ Requires the following MediaPortal dlls to be included.
 		TvLibrary.Interfaces.dll
 		TvLibrary.Utils.dll
 
-Default location for MediaPortal files is .\TvSpaceSaver\inc\
+Default location for MediaPortal files is .\TvSpaceSaver\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\
