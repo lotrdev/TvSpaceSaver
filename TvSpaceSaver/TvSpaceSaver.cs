@@ -20,9 +20,9 @@ namespace TvEngine
         private const int DefaultNumberOfHours = 3;
         private const string DefaultCompressProg = "C:\\Program Files\\Handbrake\\HandbrakeCLI.exe";
         private const string DefaultCompressParam = "-i \"{0}\" -o \"{3}\\{2}.mkv\"";
-        private const string DefaultComSkipProg = "Comskip.exe";
+        private const string DefaultComSkipProg = "C:\\Program Files (x86)\\ComSkip\\Comskip.exe";
         private const string DefaultComSkipParam = "--zpcut \"{0}\"";
-        private const string DefaultMkvMergeProg = "MkvMerge.exe";
+        private const string DefaultMkvMergeProg = "C:\\Program Files\\MKVToolNix\\MkvMerge.exe";
         private const bool DefaultCutCommercials = false;
 
         #endregion Constants

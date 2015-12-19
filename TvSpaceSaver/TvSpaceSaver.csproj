@@ -49,24 +49,25 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Utils">
-      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Common.Utils.dll</HintPath>
+    <Reference Include="Common.Utils, Version=1.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Common.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Gentle.Common, Version=1.5.0.29113, Culture=neutral, PublicKeyToken=80b5de62e27be49b, processorArchitecture=MSIL">
-      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Gentle.Common.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Gentle.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Gentle.Framework, Version=1.5.0.29113, Culture=neutral, PublicKeyToken=80b5de62e27be49b, processorArchitecture=MSIL">
-      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Gentle.Framework.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Gentle.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PluginBase, Version=1.12.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\PluginBase.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\PluginBase.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SetupControls, Version=1.12.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\SetupControls.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\SetupControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -78,42 +79,38 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="TvBusinessLayer, Version=1.12.100.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvBusinessLayer.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvBusinessLayer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="TvControl, Version=1.12.100.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvControl.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvControl.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="TVDatabase, Version=1.12.100.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TVDatabase.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TVDatabase.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="TvLibrary.Interfaces, Version=1.12.100.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvLibrary.Interfaces.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvLibrary.Interfaces.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="TvLibrary.Utils">
-      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvLibrary.Utils.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvLibrary.Utils.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestTvSpaceSaver\Program.cs" />
-    <Compile Include="TvSpaceSaver\TvSpaceSaver.cs" />
-    <Compile Include="TvSpaceSaver\TvSpaceSaverSetup.cs">
+    <Compile Include="TvSpaceSaver.cs" />
+    <Compile Include="TvSpaceSaverSetup.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TvSpaceSaver\TvSpaceSaverSetup.Designer.cs">
+    <Compile Include="TvSpaceSaverSetup.Designer.cs">
       <DependentUpon>TvSpaceSaverSetup.cs</DependentUpon>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include=".git\" />
-    <Folder Include=".vs\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="..\packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
