@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8F56C392-00A0-44D4-8EC6-BDAE876D939F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>ClassLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>TvSpaceSaver</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Gentle.Common, Version=1.5.0.29113, Culture=neutral, PublicKeyToken=80b5de62e27be49b, processorArchitecture=MSIL">
+      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Gentle.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Gentle.Framework, Version=1.5.0.29113, Culture=neutral, PublicKeyToken=80b5de62e27be49b, processorArchitecture=MSIL">
+      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Gentle.Framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PluginBase, Version=1.12.100.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\PluginBase.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SetupControls, Version=1.12.100.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\SetupControls.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="TvBusinessLayer, Version=1.12.100.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvBusinessLayer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TvControl, Version=1.12.100.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvControl.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TVDatabase, Version=1.12.100.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TVDatabase.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TvLibrary.Interfaces, Version=1.12.100.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvLibrary.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TvLibrary.Utils">
+      <HintPath>packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvLibrary.Utils.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TestTvSpaceSaver\Program.cs" />
+    <Compile Include="TvSpaceSaver\TvSpaceSaver.cs" />
+    <Compile Include="TvSpaceSaver\TvSpaceSaverSetup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TvSpaceSaver\TvSpaceSaverSetup.Designer.cs">
+      <DependentUpon>TvSpaceSaverSetup.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".git\" />
+    <Folder Include=".vs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
