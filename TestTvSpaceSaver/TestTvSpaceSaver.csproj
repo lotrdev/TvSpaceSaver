@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Utils">
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Common.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="PluginBase">
       <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\PluginBase.dll</HintPath>
     </Reference>

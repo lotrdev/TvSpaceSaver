@@ -10,7 +10,8 @@ namespace TestTvSpaceSaver
     {
         static void Main(string[] args)
         {
-            TvSpaceSaver.ProcessRecording("C:\\Users\\tom\\git\\Twilight Zone\\TwilightZone.ts");
+            TvSpaceSaver.ProcessRecording("C:\\Users\\tom\\git\\Twilight Zone\\Frosty the Snowman - CBS - 2015-11-28.ts");
+            //TvSpaceSaver.TestCutChapters("TwilightZone", "C:\\Users\\tom\\git\\Twilight Zone\\TwilightZone");
         }
     }
 }

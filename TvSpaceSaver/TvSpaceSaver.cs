@@ -19,7 +19,7 @@ namespace TvEngine
         private const bool DefaultRunInHours = false;
         private const int DefaultNumberOfHours = 3;
         private const string DefaultCompressProg = "C:\\Program Files\\Handbrake\\HandbrakeCLI.exe";
-        private const string DefaultCompressParam = "-i \"{0}\" -o \"{3}\\{2}.mkv\"";
+        private const string DefaultCompressParam = "-i \"{0}\" -e x264 -o \"{3}\\{2}.mkv\"";
         private const string DefaultComSkipProg = "C:\\Program Files (x86)\\ComSkip\\Comskip.exe";
         private const string DefaultComSkipParam = "--zpcut \"{0}\"";
         private const string DefaultMkvMergeProg = "C:\\Program Files\\MKVToolNix\\MkvMerge.exe";
@@ -438,7 +438,7 @@ namespace TvEngine
             string[] parts = time.Split('.');
             TimeSpan timeCode = TimeSpan.FromSeconds(int.Parse(parts[0]));
             
-            return string.Format("{0:D2}:{1:D2}:{2:D2}:{3}", timeCode.Hours, timeCode.Minutes, timeCode.Seconds, parts[1]);
+            return string.Format("{0:D2}:{1:D2}:{2:D2}.{3}", timeCode.Hours, timeCode.Minutes, timeCode.Seconds, parts[1]);
         }
 
         #endregion Implementation
