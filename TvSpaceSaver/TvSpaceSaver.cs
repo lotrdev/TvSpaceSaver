@@ -134,8 +134,7 @@ namespace TvEngine
         #endregion Properties
 
         #region IPlugin Members
-
-        [CLSCompliant(false)]
+        
         public void Start(IController controller)
         {
             Log.Info("plugin: TvSpaceSaver start");
@@ -154,8 +153,7 @@ namespace TvEngine
                 GlobalServiceProvider.Instance.Get<ITvServerEvent>().OnTvServerEvent -= TvSpaceSaver_OnTvServerEvent;
             }
         }
-
-        [CLSCompliant(false)]
+        
         public SectionSettings Setup
         {
             get { return new SetupTv.Sections.TvSpaceSaverSetup(); }

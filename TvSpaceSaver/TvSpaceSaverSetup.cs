@@ -13,7 +13,6 @@ using TvDatabase;
 
 namespace SetupTv.Sections
 {
-    [CLSCompliant(false)]
     public partial class TvSpaceSaverSetup : SetupTv.SectionSettings
     {
         #region Constants
