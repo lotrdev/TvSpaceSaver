@@ -41,7 +41,18 @@ namespace SetupTv.Sections
             get { return textBoxCompressParam.Text; }
             set { textBoxCompressParam.Text = value; }
         }
+        public string ComSkipProgram
+        {
+            get { return textBoxComSkipProg.Text; }
+            set { textBoxComSkipProg.Text = value; }
+        }
 
+        public string ComSkipParameters
+        {
+            get { return textBoxComSkipParameters.Text; }
+            set { textBoxComSkipParameters.Text = value; }
+        }
+        
         #endregion Properties
 
         public TvSpaceSaverSetup()
@@ -65,6 +76,12 @@ namespace SetupTv.Sections
             TvSpaceSaver.CompressionProgram = this.CompressionProgram;
             TvSpaceSaver.CompressionParameters = this.CompressionParameters;
 
+            TvSpaceSaver.ComSkipProgram = ComSkipProgram;
+            TvSpaceSaver.ComSkipParameters = ComSkipParameters;
+
+            TvSpaceSaver.ProcessCommercials = radioButtonComIgnore.Checked;
+            TvSpaceSaver.CutCommercials = radioButtonComCut.Checked;
+
             TvSpaceSaver.SaveSettings();
 
             base.OnSectionDeActivated();
@@ -84,6 +101,18 @@ namespace SetupTv.Sections
             CompressionProgram = TvSpaceSaver.CompressionProgram;
             CompressionParameters = TvSpaceSaver.CompressionParameters;
 
+            ComSkipProgram = TvSpaceSaver.ComSkipProgram;
+            ComSkipParameters = TvSpaceSaver.ComSkipParameters;
+
+            if (TvSpaceSaver.ProcessCommercials)
+            {
+                radioButtonComCut.Checked = TvSpaceSaver.CutCommercials;
+                radioButtonComSkip.Checked = !TvSpaceSaver.CutCommercials;
+            } else
+            {
+                radioButtonComIgnore.Checked = false;
+            }
+
             base.OnSectionActivated();
         }
 
@@ -94,6 +123,13 @@ namespace SetupTv.Sections
             openFileDialog.Title = "Select Compression Program To Execute";
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
                 textBoxCompressProg.Text = openFileDialog.FileName;
+        }
+
+        private void buttonComSkipProg_Click(object sender, EventArgs e)
+        {
+            openFileDialog.Title = "Select Location of ComSkip.exe";
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+                textBoxComSkipProg.Text = openFileDialog.FileName;
         }
 
         private void radioButtonExecuteInHours_CheckedChanged(object sender, EventArgs e)
@@ -107,6 +143,12 @@ namespace SetupTv.Sections
             {
                 e.Handled = true;
             }
+        }
+
+        private void radioButtonComIgnore_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxComSkipProg.Enabled = !radioButtonComIgnore.Checked;
+            textBoxComSkipParameters.Enabled = !radioButtonComIgnore.Checked;
         }
     }
 }

@@ -40,8 +40,18 @@
             this.textBoxNumHours = new System.Windows.Forms.TextBox();
             this.radioButtonRunInHours = new System.Windows.Forms.RadioButton();
             this.radioButtonImmediately = new System.Windows.Forms.RadioButton();
+            this.groupBoxComskip = new System.Windows.Forms.GroupBox();
+            this.radioButtonComIgnore = new System.Windows.Forms.RadioButton();
+            this.radioButtonComCut = new System.Windows.Forms.RadioButton();
+            this.radioButtonComSkip = new System.Windows.Forms.RadioButton();
+            this.buttonComSkipProg = new System.Windows.Forms.Button();
+            this.textBoxComSkipParameters = new System.Windows.Forms.TextBox();
+            this.labelComSkipParameters = new System.Windows.Forms.Label();
+            this.textBoxComSkipProg = new System.Windows.Forms.TextBox();
+            this.labelComSkipPath = new System.Windows.Forms.Label();
             this.groupBoxCompression.SuspendLayout();
             this.groupBoxWhenToExecute.SuspendLayout();
+            this.groupBoxComskip.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxCompression
@@ -53,7 +63,7 @@
             this.groupBoxCompression.Controls.Add(this.labelCompressProg);
             this.groupBoxCompression.Location = new System.Drawing.Point(3, 3);
             this.groupBoxCompression.Name = "groupBoxCompression";
-            this.groupBoxCompression.Size = new System.Drawing.Size(344, 112);
+            this.groupBoxCompression.Size = new System.Drawing.Size(344, 111);
             this.groupBoxCompression.TabIndex = 0;
             this.groupBoxCompression.TabStop = false;
             this.groupBoxCompression.Text = "Compression Tool";
@@ -106,12 +116,12 @@
             this.groupBoxWhenToExecute.Controls.Add(this.textBoxNumHours);
             this.groupBoxWhenToExecute.Controls.Add(this.radioButtonRunInHours);
             this.groupBoxWhenToExecute.Controls.Add(this.radioButtonImmediately);
-            this.groupBoxWhenToExecute.Location = new System.Drawing.Point(3, 122);
+            this.groupBoxWhenToExecute.Location = new System.Drawing.Point(3, 307);
             this.groupBoxWhenToExecute.Name = "groupBoxWhenToExecute";
-            this.groupBoxWhenToExecute.Size = new System.Drawing.Size(344, 112);
+            this.groupBoxWhenToExecute.Size = new System.Drawing.Size(344, 78);
             this.groupBoxWhenToExecute.TabIndex = 1;
             this.groupBoxWhenToExecute.TabStop = false;
-            this.groupBoxWhenToExecute.Text = "When to compress";
+            this.groupBoxWhenToExecute.Text = "Schedule";
             // 
             // labelHours
             // 
@@ -152,18 +162,115 @@
             this.radioButtonImmediately.Text = "Immediately After Recording Finishes";
             this.radioButtonImmediately.UseVisualStyleBackColor = true;
             // 
+            // groupBoxComskip
+            // 
+            this.groupBoxComskip.Controls.Add(this.radioButtonComIgnore);
+            this.groupBoxComskip.Controls.Add(this.radioButtonComCut);
+            this.groupBoxComskip.Controls.Add(this.radioButtonComSkip);
+            this.groupBoxComskip.Controls.Add(this.buttonComSkipProg);
+            this.groupBoxComskip.Controls.Add(this.textBoxComSkipParameters);
+            this.groupBoxComskip.Controls.Add(this.labelComSkipParameters);
+            this.groupBoxComskip.Controls.Add(this.textBoxComSkipProg);
+            this.groupBoxComskip.Controls.Add(this.labelComSkipPath);
+            this.groupBoxComskip.Location = new System.Drawing.Point(3, 120);
+            this.groupBoxComskip.Name = "groupBoxComskip";
+            this.groupBoxComskip.Size = new System.Drawing.Size(344, 181);
+            this.groupBoxComskip.TabIndex = 2;
+            this.groupBoxComskip.TabStop = false;
+            this.groupBoxComskip.Text = "Commercial Skipping";
+            // 
+            // radioButtonComIgnore
+            // 
+            this.radioButtonComIgnore.AutoSize = true;
+            this.radioButtonComIgnore.Location = new System.Drawing.Point(10, 68);
+            this.radioButtonComIgnore.Margin = new System.Windows.Forms.Padding(3, 3, 3, 5);
+            this.radioButtonComIgnore.Name = "radioButtonComIgnore";
+            this.radioButtonComIgnore.Size = new System.Drawing.Size(158, 17);
+            this.radioButtonComIgnore.TabIndex = 7;
+            this.radioButtonComIgnore.TabStop = true;
+            this.radioButtonComIgnore.Text = "Do not process commercials";
+            this.radioButtonComIgnore.UseVisualStyleBackColor = true;
+            this.radioButtonComIgnore.CheckedChanged += new System.EventHandler(this.radioButtonComIgnore_CheckedChanged);
+            // 
+            // radioButtonComCut
+            // 
+            this.radioButtonComCut.AutoSize = true;
+            this.radioButtonComCut.Location = new System.Drawing.Point(10, 44);
+            this.radioButtonComCut.Name = "radioButtonComCut";
+            this.radioButtonComCut.Size = new System.Drawing.Size(203, 17);
+            this.radioButtonComCut.TabIndex = 6;
+            this.radioButtonComCut.TabStop = true;
+            this.radioButtonComCut.Text = "Cut commercials out of final output file";
+            this.radioButtonComCut.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonComSkip
+            // 
+            this.radioButtonComSkip.AutoSize = true;
+            this.radioButtonComSkip.Location = new System.Drawing.Point(10, 20);
+            this.radioButtonComSkip.Name = "radioButtonComSkip";
+            this.radioButtonComSkip.Size = new System.Drawing.Size(211, 17);
+            this.radioButtonComSkip.TabIndex = 5;
+            this.radioButtonComSkip.TabStop = true;
+            this.radioButtonComSkip.Text = "Create chapter markers for commercials";
+            this.radioButtonComSkip.UseVisualStyleBackColor = true;
+            // 
+            // buttonComSkipProg
+            // 
+            this.buttonComSkipProg.Location = new System.Drawing.Point(313, 107);
+            this.buttonComSkipProg.Name = "buttonComSkipProg";
+            this.buttonComSkipProg.Size = new System.Drawing.Size(24, 20);
+            this.buttonComSkipProg.TabIndex = 4;
+            this.buttonComSkipProg.Text = "...";
+            this.buttonComSkipProg.UseVisualStyleBackColor = true;
+            this.buttonComSkipProg.Click += new System.EventHandler(this.buttonComSkipProg_Click);
+            // 
+            // textBoxComSkipParameters
+            // 
+            this.textBoxComSkipParameters.Location = new System.Drawing.Point(10, 147);
+            this.textBoxComSkipParameters.Name = "textBoxComSkipParameters";
+            this.textBoxComSkipParameters.Size = new System.Drawing.Size(296, 20);
+            this.textBoxComSkipParameters.TabIndex = 3;
+            // 
+            // labelComSkipParameters
+            // 
+            this.labelComSkipParameters.AutoSize = true;
+            this.labelComSkipParameters.Location = new System.Drawing.Point(7, 130);
+            this.labelComSkipParameters.Name = "labelComSkipParameters";
+            this.labelComSkipParameters.Size = new System.Drawing.Size(128, 13);
+            this.labelComSkipParameters.TabIndex = 2;
+            this.labelComSkipParameters.Text = "ComSkip.exe Parameters:";
+            // 
+            // textBoxComSkipProg
+            // 
+            this.textBoxComSkipProg.Location = new System.Drawing.Point(10, 107);
+            this.textBoxComSkipProg.Name = "textBoxComSkipProg";
+            this.textBoxComSkipProg.Size = new System.Drawing.Size(296, 20);
+            this.textBoxComSkipProg.TabIndex = 1;
+            // 
+            // labelComSkipPath
+            // 
+            this.labelComSkipPath.AutoSize = true;
+            this.labelComSkipPath.Location = new System.Drawing.Point(7, 90);
+            this.labelComSkipPath.Name = "labelComSkipPath";
+            this.labelComSkipPath.Size = new System.Drawing.Size(97, 13);
+            this.labelComSkipPath.TabIndex = 0;
+            this.labelComSkipPath.Text = "ComSkip.exe Path:";
+            // 
             // TvSpaceSaverSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBoxComskip);
             this.Controls.Add(this.groupBoxWhenToExecute);
             this.Controls.Add(this.groupBoxCompression);
             this.Name = "TvSpaceSaverSetup";
-            this.Size = new System.Drawing.Size(400, 300);
+            this.Size = new System.Drawing.Size(400, 462);
             this.groupBoxCompression.ResumeLayout(false);
             this.groupBoxCompression.PerformLayout();
             this.groupBoxWhenToExecute.ResumeLayout(false);
             this.groupBoxWhenToExecute.PerformLayout();
+            this.groupBoxComskip.ResumeLayout(false);
+            this.groupBoxComskip.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -182,5 +289,14 @@
         private System.Windows.Forms.RadioButton radioButtonImmediately;
         private System.Windows.Forms.Label labelHours;
         private System.Windows.Forms.TextBox textBoxNumHours;
+        private System.Windows.Forms.GroupBox groupBoxComskip;
+        private System.Windows.Forms.Button buttonComSkipProg;
+        private System.Windows.Forms.TextBox textBoxComSkipParameters;
+        private System.Windows.Forms.Label labelComSkipParameters;
+        private System.Windows.Forms.TextBox textBoxComSkipProg;
+        private System.Windows.Forms.Label labelComSkipPath;
+        private System.Windows.Forms.RadioButton radioButtonComIgnore;
+        private System.Windows.Forms.RadioButton radioButtonComCut;
+        private System.Windows.Forms.RadioButton radioButtonComSkip;
     }
 }
