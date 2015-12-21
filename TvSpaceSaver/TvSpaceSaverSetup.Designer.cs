@@ -56,6 +56,7 @@ namespace SetupTv.Sections
             this.tabPageSchedule = new System.Windows.Forms.TabPage();
             this.tabPageManual = new System.Windows.Forms.TabPage();
             this.dataGridViewRecordings = new System.Windows.Forms.DataGridView();
+            this.buttonProcess = new System.Windows.Forms.Button();
             this.groupBoxCompression.SuspendLayout();
             this.groupBoxWhenToExecute.SuspendLayout();
             this.groupBoxComskip.SuspendLayout();
@@ -304,6 +305,7 @@ namespace SetupTv.Sections
             // 
             // tabPageManual
             // 
+            this.tabPageManual.Controls.Add(this.buttonProcess);
             this.tabPageManual.Controls.Add(this.dataGridViewRecordings);
             this.tabPageManual.Location = new System.Drawing.Point(4, 22);
             this.tabPageManual.Name = "tabPageManual";
@@ -317,8 +319,19 @@ namespace SetupTv.Sections
             this.dataGridViewRecordings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewRecordings.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewRecordings.Name = "dataGridViewRecordings";
+            this.dataGridViewRecordings.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewRecordings.Size = new System.Drawing.Size(393, 383);
             this.dataGridViewRecordings.TabIndex = 0;
+            // 
+            // buttonProcess
+            // 
+            this.buttonProcess.Location = new System.Drawing.Point(276, 393);
+            this.buttonProcess.Name = "buttonProcess";
+            this.buttonProcess.Size = new System.Drawing.Size(119, 23);
+            this.buttonProcess.TabIndex = 1;
+            this.buttonProcess.Text = "Process Recording(s)";
+            this.buttonProcess.UseVisualStyleBackColor = true;
+            this.buttonProcess.Click += new System.EventHandler(this.buttonProcess_Click);
             // 
             // TvSpaceSaverSetup
             // 
@@ -370,5 +383,6 @@ namespace SetupTv.Sections
         private System.Windows.Forms.TabPage tabPageSchedule;
         private System.Windows.Forms.TabPage tabPageManual;
         private DataGridView dataGridViewRecordings;
+        private Button buttonProcess;
     }
 }

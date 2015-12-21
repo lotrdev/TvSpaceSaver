@@ -166,5 +166,20 @@ namespace SetupTv.Sections
             textBoxComSkipProg.Enabled = !radioButtonComIgnore.Checked;
             textBoxComSkipParameters.Enabled = !radioButtonComIgnore.Checked;
         }
+
+        private void buttonProcess_Click(object sender, EventArgs e)
+        {
+            int selectedRowCount = dataGridViewRecordings.Rows.GetRowCount(DataGridViewElementStates.Selected);
+            if (selectedRowCount > 0)
+            {
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+                for (int i = 0; i < selectedRowCount; i++)
+                {
+                    Recording rec = (Recording)dataGridViewRecordings.SelectedRows[i].DataBoundItem;
+                    TvSpaceSaver.ProcessRecording(rec.FileName);
+                }
+            }
+        }
     }
 }
