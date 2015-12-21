@@ -51,7 +51,7 @@ namespace SetupTv.Sections
             this.labelComSkipParameters = new System.Windows.Forms.Label();
             this.textBoxComSkipProg = new System.Windows.Forms.TextBox();
             this.labelComSkipPath = new System.Windows.Forms.Label();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControlSetup = new System.Windows.Forms.TabControl();
             this.tabPageConfiguration = new System.Windows.Forms.TabPage();
             this.tabPageSchedule = new System.Windows.Forms.TabPage();
             this.tabPageManual = new System.Windows.Forms.TabPage();
@@ -60,7 +60,7 @@ namespace SetupTv.Sections
             this.groupBoxCompression.SuspendLayout();
             this.groupBoxWhenToExecute.SuspendLayout();
             this.groupBoxComskip.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.tabControlSetup.SuspendLayout();
             this.tabPageConfiguration.SuspendLayout();
             this.tabPageSchedule.SuspendLayout();
             this.tabPageManual.SuspendLayout();
@@ -269,16 +269,16 @@ namespace SetupTv.Sections
             this.labelComSkipPath.TabIndex = 0;
             this.labelComSkipPath.Text = "ComSkip.exe Path:";
             // 
-            // tabControl1
+            // tabControlSetup
             // 
-            this.tabControl1.Controls.Add(this.tabPageConfiguration);
-            this.tabControl1.Controls.Add(this.tabPageSchedule);
-            this.tabControl1.Controls.Add(this.tabPageManual);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(407, 452);
-            this.tabControl1.TabIndex = 3;
+            this.tabControlSetup.Controls.Add(this.tabPageConfiguration);
+            this.tabControlSetup.Controls.Add(this.tabPageSchedule);
+            this.tabControlSetup.Controls.Add(this.tabPageManual);
+            this.tabControlSetup.Location = new System.Drawing.Point(0, 0);
+            this.tabControlSetup.Name = "tabControlSetup";
+            this.tabControlSetup.SelectedIndex = 0;
+            this.tabControlSetup.Size = new System.Drawing.Size(485, 434);
+            this.tabControlSetup.TabIndex = 3;
             // 
             // tabPageConfiguration
             // 
@@ -287,7 +287,7 @@ namespace SetupTv.Sections
             this.tabPageConfiguration.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfiguration.Name = "tabPageConfiguration";
             this.tabPageConfiguration.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConfiguration.Size = new System.Drawing.Size(399, 426);
+            this.tabPageConfiguration.Size = new System.Drawing.Size(474, 408);
             this.tabPageConfiguration.TabIndex = 0;
             this.tabPageConfiguration.Text = "Configuration";
             this.tabPageConfiguration.UseVisualStyleBackColor = true;
@@ -298,7 +298,7 @@ namespace SetupTv.Sections
             this.tabPageSchedule.Location = new System.Drawing.Point(4, 22);
             this.tabPageSchedule.Name = "tabPageSchedule";
             this.tabPageSchedule.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSchedule.Size = new System.Drawing.Size(399, 426);
+            this.tabPageSchedule.Size = new System.Drawing.Size(474, 408);
             this.tabPageSchedule.TabIndex = 1;
             this.tabPageSchedule.Text = "Schedule";
             this.tabPageSchedule.UseVisualStyleBackColor = true;
@@ -309,7 +309,7 @@ namespace SetupTv.Sections
             this.tabPageManual.Controls.Add(this.dataGridViewRecordings);
             this.tabPageManual.Location = new System.Drawing.Point(4, 22);
             this.tabPageManual.Name = "tabPageManual";
-            this.tabPageManual.Size = new System.Drawing.Size(399, 426);
+            this.tabPageManual.Size = new System.Drawing.Size(477, 408);
             this.tabPageManual.TabIndex = 2;
             this.tabPageManual.Text = "Manual Control";
             this.tabPageManual.UseVisualStyleBackColor = true;
@@ -320,12 +320,12 @@ namespace SetupTv.Sections
             this.dataGridViewRecordings.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewRecordings.Name = "dataGridViewRecordings";
             this.dataGridViewRecordings.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewRecordings.Size = new System.Drawing.Size(393, 383);
+            this.dataGridViewRecordings.Size = new System.Drawing.Size(468, 373);
             this.dataGridViewRecordings.TabIndex = 0;
             // 
             // buttonProcess
             // 
-            this.buttonProcess.Location = new System.Drawing.Point(276, 393);
+            this.buttonProcess.Location = new System.Drawing.Point(352, 382);
             this.buttonProcess.Name = "buttonProcess";
             this.buttonProcess.Size = new System.Drawing.Size(119, 23);
             this.buttonProcess.TabIndex = 1;
@@ -337,16 +337,16 @@ namespace SetupTv.Sections
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.tabControlSetup);
             this.Name = "TvSpaceSaverSetup";
-            this.Size = new System.Drawing.Size(425, 467);
+            this.Size = new System.Drawing.Size(490, 434);
             this.groupBoxCompression.ResumeLayout(false);
             this.groupBoxCompression.PerformLayout();
             this.groupBoxWhenToExecute.ResumeLayout(false);
             this.groupBoxWhenToExecute.PerformLayout();
             this.groupBoxComskip.ResumeLayout(false);
             this.groupBoxComskip.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
+            this.tabControlSetup.ResumeLayout(false);
             this.tabPageConfiguration.ResumeLayout(false);
             this.tabPageSchedule.ResumeLayout(false);
             this.tabPageManual.ResumeLayout(false);
@@ -378,7 +378,7 @@ namespace SetupTv.Sections
         private System.Windows.Forms.RadioButton radioButtonComIgnore;
         private System.Windows.Forms.RadioButton radioButtonComCut;
         private System.Windows.Forms.RadioButton radioButtonComSkip;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControlSetup;
         private System.Windows.Forms.TabPage tabPageConfiguration;
         private System.Windows.Forms.TabPage tabPageSchedule;
         private System.Windows.Forms.TabPage tabPageManual;
