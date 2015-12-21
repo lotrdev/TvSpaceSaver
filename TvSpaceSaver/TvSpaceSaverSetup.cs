@@ -112,6 +112,23 @@ namespace SetupTv.Sections
                 radioButtonComIgnore.Checked = false;
             }
 
+            dataGridViewRecordings.AutoGenerateColumns = false;
+            dataGridViewRecordings.ColumnCount = 3;
+
+            dataGridViewRecordings.Columns[0].Name = "ID";
+            dataGridViewRecordings.Columns[0].DataPropertyName = "IdRecording";
+            dataGridViewRecordings.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewRecordings.Columns[1].Name = "Title";
+            dataGridViewRecordings.Columns[1].DataPropertyName = "Title";
+            dataGridViewRecordings.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dataGridViewRecordings.Columns[2].Name = "Description";
+            dataGridViewRecordings.Columns[2].DataPropertyName = "Description";
+            dataGridViewRecordings.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            BindingSource bindingSourceRecordings = new BindingSource();
+            bindingSourceRecordings.DataSource = Recording.ListAll();
+            dataGridViewRecordings.DataSource = bindingSourceRecordings;
+
             base.OnSectionActivated();
         }
 

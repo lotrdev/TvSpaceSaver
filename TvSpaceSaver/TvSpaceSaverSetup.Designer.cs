@@ -1,4 +1,6 @@
-﻿namespace SetupTv.Sections
+﻿using System.Windows.Forms;
+
+namespace SetupTv.Sections
 {
     partial class TvSpaceSaverSetup
     {
@@ -49,9 +51,19 @@
             this.labelComSkipParameters = new System.Windows.Forms.Label();
             this.textBoxComSkipProg = new System.Windows.Forms.TextBox();
             this.labelComSkipPath = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPageConfiguration = new System.Windows.Forms.TabPage();
+            this.tabPageSchedule = new System.Windows.Forms.TabPage();
+            this.tabPageManual = new System.Windows.Forms.TabPage();
+            this.dataGridViewRecordings = new System.Windows.Forms.DataGridView();
             this.groupBoxCompression.SuspendLayout();
             this.groupBoxWhenToExecute.SuspendLayout();
             this.groupBoxComskip.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPageConfiguration.SuspendLayout();
+            this.tabPageSchedule.SuspendLayout();
+            this.tabPageManual.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRecordings)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBoxCompression
@@ -61,7 +73,7 @@
             this.groupBoxCompression.Controls.Add(this.labelCompressParameters);
             this.groupBoxCompression.Controls.Add(this.textBoxCompressProg);
             this.groupBoxCompression.Controls.Add(this.labelCompressProg);
-            this.groupBoxCompression.Location = new System.Drawing.Point(3, 3);
+            this.groupBoxCompression.Location = new System.Drawing.Point(6, 6);
             this.groupBoxCompression.Name = "groupBoxCompression";
             this.groupBoxCompression.Size = new System.Drawing.Size(344, 111);
             this.groupBoxCompression.TabIndex = 0;
@@ -116,7 +128,7 @@
             this.groupBoxWhenToExecute.Controls.Add(this.textBoxNumHours);
             this.groupBoxWhenToExecute.Controls.Add(this.radioButtonRunInHours);
             this.groupBoxWhenToExecute.Controls.Add(this.radioButtonImmediately);
-            this.groupBoxWhenToExecute.Location = new System.Drawing.Point(3, 307);
+            this.groupBoxWhenToExecute.Location = new System.Drawing.Point(3, 6);
             this.groupBoxWhenToExecute.Name = "groupBoxWhenToExecute";
             this.groupBoxWhenToExecute.Size = new System.Drawing.Size(344, 78);
             this.groupBoxWhenToExecute.TabIndex = 1;
@@ -172,7 +184,7 @@
             this.groupBoxComskip.Controls.Add(this.labelComSkipParameters);
             this.groupBoxComskip.Controls.Add(this.textBoxComSkipProg);
             this.groupBoxComskip.Controls.Add(this.labelComSkipPath);
-            this.groupBoxComskip.Location = new System.Drawing.Point(3, 120);
+            this.groupBoxComskip.Location = new System.Drawing.Point(6, 123);
             this.groupBoxComskip.Name = "groupBoxComskip";
             this.groupBoxComskip.Size = new System.Drawing.Size(344, 181);
             this.groupBoxComskip.TabIndex = 2;
@@ -256,21 +268,76 @@
             this.labelComSkipPath.TabIndex = 0;
             this.labelComSkipPath.Text = "ComSkip.exe Path:";
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPageConfiguration);
+            this.tabControl1.Controls.Add(this.tabPageSchedule);
+            this.tabControl1.Controls.Add(this.tabPageManual);
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(407, 452);
+            this.tabControl1.TabIndex = 3;
+            // 
+            // tabPageConfiguration
+            // 
+            this.tabPageConfiguration.Controls.Add(this.groupBoxCompression);
+            this.tabPageConfiguration.Controls.Add(this.groupBoxComskip);
+            this.tabPageConfiguration.Location = new System.Drawing.Point(4, 22);
+            this.tabPageConfiguration.Name = "tabPageConfiguration";
+            this.tabPageConfiguration.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageConfiguration.Size = new System.Drawing.Size(399, 426);
+            this.tabPageConfiguration.TabIndex = 0;
+            this.tabPageConfiguration.Text = "Configuration";
+            this.tabPageConfiguration.UseVisualStyleBackColor = true;
+            // 
+            // tabPageSchedule
+            // 
+            this.tabPageSchedule.Controls.Add(this.groupBoxWhenToExecute);
+            this.tabPageSchedule.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSchedule.Name = "tabPageSchedule";
+            this.tabPageSchedule.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSchedule.Size = new System.Drawing.Size(399, 426);
+            this.tabPageSchedule.TabIndex = 1;
+            this.tabPageSchedule.Text = "Schedule";
+            this.tabPageSchedule.UseVisualStyleBackColor = true;
+            // 
+            // tabPageManual
+            // 
+            this.tabPageManual.Controls.Add(this.dataGridViewRecordings);
+            this.tabPageManual.Location = new System.Drawing.Point(4, 22);
+            this.tabPageManual.Name = "tabPageManual";
+            this.tabPageManual.Size = new System.Drawing.Size(399, 426);
+            this.tabPageManual.TabIndex = 2;
+            this.tabPageManual.Text = "Manual Control";
+            this.tabPageManual.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewRecordings
+            // 
+            this.dataGridViewRecordings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewRecordings.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewRecordings.Name = "dataGridViewRecordings";
+            this.dataGridViewRecordings.Size = new System.Drawing.Size(393, 383);
+            this.dataGridViewRecordings.TabIndex = 0;
+            // 
             // TvSpaceSaverSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.groupBoxComskip);
-            this.Controls.Add(this.groupBoxWhenToExecute);
-            this.Controls.Add(this.groupBoxCompression);
+            this.Controls.Add(this.tabControl1);
             this.Name = "TvSpaceSaverSetup";
-            this.Size = new System.Drawing.Size(400, 462);
+            this.Size = new System.Drawing.Size(425, 467);
             this.groupBoxCompression.ResumeLayout(false);
             this.groupBoxCompression.PerformLayout();
             this.groupBoxWhenToExecute.ResumeLayout(false);
             this.groupBoxWhenToExecute.PerformLayout();
             this.groupBoxComskip.ResumeLayout(false);
             this.groupBoxComskip.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPageConfiguration.ResumeLayout(false);
+            this.tabPageSchedule.ResumeLayout(false);
+            this.tabPageManual.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRecordings)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -298,5 +365,10 @@
         private System.Windows.Forms.RadioButton radioButtonComIgnore;
         private System.Windows.Forms.RadioButton radioButtonComCut;
         private System.Windows.Forms.RadioButton radioButtonComSkip;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPageConfiguration;
+        private System.Windows.Forms.TabPage tabPageSchedule;
+        private System.Windows.Forms.TabPage tabPageManual;
+        private DataGridView dataGridViewRecordings;
     }
 }
