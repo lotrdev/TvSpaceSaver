@@ -78,7 +78,7 @@ namespace SetupTv.Sections
             TvSpaceSaver.ComSkipProgram = ComSkipProgram;
             TvSpaceSaver.ComSkipParameters = ComSkipParameters;
 
-            TvSpaceSaver.ProcessCommercials = radioButtonComIgnore.Checked;
+            TvSpaceSaver.ProcessCommercials = !radioButtonComIgnore.Checked;
             TvSpaceSaver.CutCommercials = radioButtonComCut.Checked;
 
             TvSpaceSaver.SaveSettings();
@@ -109,7 +109,7 @@ namespace SetupTv.Sections
                 radioButtonComSkip.Checked = !TvSpaceSaver.CutCommercials;
             } else
             {
-                radioButtonComIgnore.Checked = false;
+                radioButtonComIgnore.Checked = true;
             }
 
             if (dataGridViewRecordings.DataSource == null)
@@ -154,6 +154,9 @@ namespace SetupTv.Sections
         private void radioButtonExecuteInHours_CheckedChanged(object sender, EventArgs e)
         {
             textBoxNumHours.Enabled = radioButtonRunInHours.Checked;
+
+            TvSpaceSaver.Immediately = radioButtonRunInHours.Checked;
+            //TvSpaceSaver.NumberOfHours = 5;//NumberOfHours;
         }
 
         private void textBoxNumHours_KeyPress(object sender, KeyPressEventArgs e)
@@ -163,7 +166,7 @@ namespace SetupTv.Sections
                 e.Handled = true;
             }
         }
-
+        
         private void radioButtonComIgnore_CheckedChanged(object sender, EventArgs e)
         {
             textBoxComSkipProg.Enabled = !radioButtonComIgnore.Checked;

@@ -15,7 +15,7 @@ namespace TvEngine
     {
         #region Constants
 
-        private const bool DefaultImmideately = true;
+        private const bool DefaultImmediately = true;
         private const bool DefaultRunInHours = false;
         private const int DefaultNumberOfHours = 3;
         private const string DefaultCompressProg = "C:\\Program Files\\Handbrake\\HandbrakeCLI.exe";
@@ -31,7 +31,7 @@ namespace TvEngine
 
         #region Members
 
-        private static bool _immediately = DefaultImmideately;
+        private static bool _immediately = DefaultImmediately;
         private static bool _runInHours = DefaultRunInHours;
         private static int _numberOfHours = DefaultNumberOfHours;
         private static string _compressProg = DefaultCompressProg;
@@ -186,18 +186,23 @@ namespace TvEngine
                 Log.Error("TvSpaceSaver - TvSpaceSaver_OnTvServerEvent(): {0}", ex.Message);
             }
         }
-
+        
         internal static void LoadSettings()
         {
             try
             {
                 TvBusinessLayer layer = new TvBusinessLayer();
 
-                _immediately = Convert.ToBoolean(layer.GetSetting("TvSpaceSaver_Immediately", DefaultImmideately.ToString()).Value);
+                _immediately = Convert.ToBoolean(layer.GetSetting("TvSpaceSaver_Immediately", DefaultImmediately.ToString()).Value);
                 _runInHours = Convert.ToBoolean(layer.GetSetting("TvSpaceSaver_RunInHours", DefaultRunInHours.ToString()).Value);
                 _numberOfHours = Convert.ToInt32(layer.GetSetting("TvSpaceSaver_NumberOfHours", DefaultNumberOfHours.ToString()).Value);
-                _compressProg = layer.GetSetting("TvSpaceSaver_Program", DefaultCompressProg).Value;
-                _compressParam = layer.GetSetting("TvSpaceSaver_Parameters", DefaultCompressParam).Value;
+                _compressProg = layer.GetSetting("TvSpaceSaver_CompressProg", DefaultCompressProg).Value;
+                _compressParam = layer.GetSetting("TvSpaceSaver_CompressParam", DefaultCompressParam).Value;
+
+                _comSkipProg = layer.GetSetting("TvSpaceSaver_ComSkipProg", DefaultCompressProg).Value;
+                _comSkipParam = layer.GetSetting("TvSpaceSaver_ComSkipParam", DefaultComSkipParam).Value;
+                _cutCommercials = Convert.ToBoolean(layer.GetSetting("TvSpaceSaver_CutCommercials", DefaultCutCommercials.ToString()).Value);
+                _processCommercials = Convert.ToBoolean(layer.GetSetting("TvSpaceSaver_ProcessCommercials", DefaultProcessCommercials.ToString()).Value);
             }
             catch (Exception ex)
             {
@@ -226,12 +231,28 @@ namespace TvEngine
                 setting.Value = _numberOfHours.ToString();
                 setting.Persist();
                 
-                setting = layer.GetSetting("TvSpaceSaver_Program");
+                setting = layer.GetSetting("TvSpaceSaver_CompressProg");
                 setting.Value = _compressProg;
                 setting.Persist();
 
-                setting = layer.GetSetting("TvSpaceSaver_Parameters");
+                setting = layer.GetSetting("TvSpaceSaver_CompressParam");
                 setting.Value = _compressParam;
+                setting.Persist();
+
+                setting = layer.GetSetting("TvSpaceSaver_ComSkipProg");
+                setting.Value = _comSkipProg;
+                setting.Persist();
+
+                setting = layer.GetSetting("TvSpaceSaver_ComSkipParam");
+                setting.Value = _comSkipParam;
+                setting.Persist();
+
+                setting = layer.GetSetting("TvSpaceSaver_CutCommercials");
+                setting.Value = _cutCommercials.ToString();
+                setting.Persist();
+
+                setting = layer.GetSetting("TvSpaceSaver_ProcessCommercials");
+                setting.Value = _processCommercials.ToString();
                 setting.Persist();
             }
             catch (Exception ex)

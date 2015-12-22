@@ -55,8 +55,8 @@ namespace SetupTv.Sections
             this.tabPageConfiguration = new System.Windows.Forms.TabPage();
             this.tabPageSchedule = new System.Windows.Forms.TabPage();
             this.tabPageManual = new System.Windows.Forms.TabPage();
-            this.dataGridViewRecordings = new System.Windows.Forms.DataGridView();
             this.buttonProcess = new System.Windows.Forms.Button();
+            this.dataGridViewRecordings = new System.Windows.Forms.DataGridView();
             this.groupBoxCompression.SuspendLayout();
             this.groupBoxWhenToExecute.SuspendLayout();
             this.groupBoxComskip.SuspendLayout();
@@ -287,7 +287,7 @@ namespace SetupTv.Sections
             this.tabPageConfiguration.Location = new System.Drawing.Point(4, 22);
             this.tabPageConfiguration.Name = "tabPageConfiguration";
             this.tabPageConfiguration.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageConfiguration.Size = new System.Drawing.Size(474, 408);
+            this.tabPageConfiguration.Size = new System.Drawing.Size(477, 408);
             this.tabPageConfiguration.TabIndex = 0;
             this.tabPageConfiguration.Text = "Configuration";
             this.tabPageConfiguration.UseVisualStyleBackColor = true;
@@ -298,7 +298,7 @@ namespace SetupTv.Sections
             this.tabPageSchedule.Location = new System.Drawing.Point(4, 22);
             this.tabPageSchedule.Name = "tabPageSchedule";
             this.tabPageSchedule.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSchedule.Size = new System.Drawing.Size(474, 408);
+            this.tabPageSchedule.Size = new System.Drawing.Size(477, 408);
             this.tabPageSchedule.TabIndex = 1;
             this.tabPageSchedule.Text = "Schedule";
             this.tabPageSchedule.UseVisualStyleBackColor = true;
@@ -314,15 +314,6 @@ namespace SetupTv.Sections
             this.tabPageManual.Text = "Manual Control";
             this.tabPageManual.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewRecordings
-            // 
-            this.dataGridViewRecordings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewRecordings.Location = new System.Drawing.Point(3, 3);
-            this.dataGridViewRecordings.Name = "dataGridViewRecordings";
-            this.dataGridViewRecordings.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewRecordings.Size = new System.Drawing.Size(468, 373);
-            this.dataGridViewRecordings.TabIndex = 0;
-            // 
             // buttonProcess
             // 
             this.buttonProcess.Location = new System.Drawing.Point(352, 382);
@@ -332,6 +323,15 @@ namespace SetupTv.Sections
             this.buttonProcess.Text = "Process Recording(s)";
             this.buttonProcess.UseVisualStyleBackColor = true;
             this.buttonProcess.Click += new System.EventHandler(this.buttonProcess_Click);
+            // 
+            // dataGridViewRecordings
+            // 
+            this.dataGridViewRecordings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewRecordings.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewRecordings.Name = "dataGridViewRecordings";
+            this.dataGridViewRecordings.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewRecordings.Size = new System.Drawing.Size(468, 373);
+            this.dataGridViewRecordings.TabIndex = 0;
             // 
             // TvSpaceSaverSetup
             // 
