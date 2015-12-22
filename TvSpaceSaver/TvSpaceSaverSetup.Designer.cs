@@ -152,6 +152,7 @@ namespace SetupTv.Sections
             this.textBoxNumHours.Size = new System.Drawing.Size(30, 20);
             this.textBoxNumHours.TabIndex = 2;
             this.textBoxNumHours.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.textBoxNumHours.TextChanged += new System.EventHandler(this.textBoxNumHours_TextChanged);
             this.textBoxNumHours.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxNumHours_KeyPress);
             // 
             // radioButtonRunInHours
@@ -203,7 +204,6 @@ namespace SetupTv.Sections
             this.radioButtonComIgnore.TabStop = true;
             this.radioButtonComIgnore.Text = "Do not process commercials";
             this.radioButtonComIgnore.UseVisualStyleBackColor = true;
-            this.radioButtonComIgnore.CheckedChanged += new System.EventHandler(this.radioButtonComIgnore_CheckedChanged);
             // 
             // radioButtonComCut
             // 

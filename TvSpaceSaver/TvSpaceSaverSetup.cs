@@ -103,6 +103,11 @@ namespace SetupTv.Sections
             ComSkipProgram = TvSpaceSaver.ComSkipProgram;
             ComSkipParameters = TvSpaceSaver.ComSkipParameters;
 
+            // Set Commercial Boolean Checked Events
+            radioButtonComIgnore.CheckedChanged += new System.EventHandler(radioButtonComBools_CheckedChanged);
+            radioButtonComCut.CheckedChanged += new System.EventHandler(radioButtonComBools_CheckedChanged);
+            radioButtonComSkip.CheckedChanged += new System.EventHandler(radioButtonComBools_CheckedChanged);
+
             if (TvSpaceSaver.ProcessCommercials)
             {
                 radioButtonComCut.Checked = TvSpaceSaver.CutCommercials;
@@ -151,14 +156,23 @@ namespace SetupTv.Sections
                 textBoxComSkipProg.Text = openFileDialog.FileName;
         }
 
+        /// <summary>
+        /// Update TvSpaceSaver Immediately boolean value.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void radioButtonExecuteInHours_CheckedChanged(object sender, EventArgs e)
         {
             textBoxNumHours.Enabled = radioButtonRunInHours.Checked;
 
             TvSpaceSaver.Immediately = radioButtonRunInHours.Checked;
-            //TvSpaceSaver.NumberOfHours = 5;//NumberOfHours;
         }
 
+        /// <summary>
+        /// Only allow key presses that are digits.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBoxNumHours_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && (!char.IsDigit(e.KeyChar)))
@@ -166,11 +180,30 @@ namespace SetupTv.Sections
                 e.Handled = true;
             }
         }
-        
-        private void radioButtonComIgnore_CheckedChanged(object sender, EventArgs e)
+
+        /// <summary>
+        /// Update TvSpaceSaver NumberOfHours setting based on updated textbox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBoxNumHours_TextChanged(object sender, EventArgs e)
+        {
+            TvSpaceSaver.NumberOfHours = NumberOfHours;
+        }
+
+        /// <summary>
+        /// Update TvSpaceSaver ProcessCommercials and CutCommercials based on
+        /// the radioButton that is selected.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void radioButtonComBools_CheckedChanged(object sender, EventArgs e)
         {
             textBoxComSkipProg.Enabled = !radioButtonComIgnore.Checked;
             textBoxComSkipParameters.Enabled = !radioButtonComIgnore.Checked;
+
+            TvSpaceSaver.ProcessCommercials = !radioButtonComIgnore.Checked;
+            TvSpaceSaver.CutCommercials = radioButtonComCut.Checked;
         }
 
         private void buttonProcess_Click(object sender, EventArgs e)
