@@ -67,7 +67,7 @@ namespace SetupTv.Sections
         {
             Log.Info("TvSpaceSaver: Configuration deactivated");
 
-
+            TvSpaceSaver.Manual = radioButtonManual.Checked;
             TvSpaceSaver.Immediately = radioButtonImmediately.Checked;
             TvSpaceSaver.RunInHours = radioButtonRunInHours.Checked;
             TvSpaceSaver.NumberOfHours = NumberOfHours;
@@ -92,8 +92,15 @@ namespace SetupTv.Sections
 
             TvSpaceSaver.LoadSettings();
 
-            radioButtonImmediately.Checked = TvSpaceSaver.Immediately;
-            radioButtonRunInHours.Checked = TvSpaceSaver.RunInHours;
+            if (TvSpaceSaver.Manual)
+            {
+                radioButtonManual.Checked = true;
+            }
+            else
+            {
+                radioButtonImmediately.Checked = TvSpaceSaver.Immediately;
+                radioButtonRunInHours.Checked = TvSpaceSaver.RunInHours;
+            }
             textBoxNumHours.Enabled = radioButtonRunInHours.Checked;
             NumberOfHours = TvSpaceSaver.NumberOfHours;
 
@@ -165,6 +172,7 @@ namespace SetupTv.Sections
         {
             textBoxNumHours.Enabled = radioButtonRunInHours.Checked;
 
+            TvSpaceSaver.Manual = radioButtonManual.Checked;
             TvSpaceSaver.Immediately = radioButtonRunInHours.Checked;
         }
 

@@ -57,6 +57,7 @@ namespace SetupTv.Sections
             this.tabPageManual = new System.Windows.Forms.TabPage();
             this.buttonProcess = new System.Windows.Forms.Button();
             this.dataGridViewRecordings = new System.Windows.Forms.DataGridView();
+            this.radioButtonManual = new System.Windows.Forms.RadioButton();
             this.groupBoxCompression.SuspendLayout();
             this.groupBoxWhenToExecute.SuspendLayout();
             this.groupBoxComskip.SuspendLayout();
@@ -125,13 +126,14 @@ namespace SetupTv.Sections
             // 
             // groupBoxWhenToExecute
             // 
+            this.groupBoxWhenToExecute.Controls.Add(this.radioButtonManual);
             this.groupBoxWhenToExecute.Controls.Add(this.labelHours);
             this.groupBoxWhenToExecute.Controls.Add(this.textBoxNumHours);
             this.groupBoxWhenToExecute.Controls.Add(this.radioButtonRunInHours);
             this.groupBoxWhenToExecute.Controls.Add(this.radioButtonImmediately);
             this.groupBoxWhenToExecute.Location = new System.Drawing.Point(3, 6);
             this.groupBoxWhenToExecute.Name = "groupBoxWhenToExecute";
-            this.groupBoxWhenToExecute.Size = new System.Drawing.Size(344, 78);
+            this.groupBoxWhenToExecute.Size = new System.Drawing.Size(344, 198);
             this.groupBoxWhenToExecute.TabIndex = 1;
             this.groupBoxWhenToExecute.TabStop = false;
             this.groupBoxWhenToExecute.Text = "Schedule";
@@ -139,7 +141,7 @@ namespace SetupTv.Sections
             // labelHours
             // 
             this.labelHours.AutoSize = true;
-            this.labelHours.Location = new System.Drawing.Point(108, 46);
+            this.labelHours.Location = new System.Drawing.Point(105, 69);
             this.labelHours.Name = "labelHours";
             this.labelHours.Size = new System.Drawing.Size(36, 13);
             this.labelHours.TabIndex = 3;
@@ -147,7 +149,7 @@ namespace SetupTv.Sections
             // 
             // textBoxNumHours
             // 
-            this.textBoxNumHours.Location = new System.Drawing.Point(72, 44);
+            this.textBoxNumHours.Location = new System.Drawing.Point(69, 67);
             this.textBoxNumHours.Name = "textBoxNumHours";
             this.textBoxNumHours.Size = new System.Drawing.Size(30, 20);
             this.textBoxNumHours.TabIndex = 2;
@@ -158,7 +160,7 @@ namespace SetupTv.Sections
             // radioButtonRunInHours
             // 
             this.radioButtonRunInHours.AutoSize = true;
-            this.radioButtonRunInHours.Location = new System.Drawing.Point(10, 44);
+            this.radioButtonRunInHours.Location = new System.Drawing.Point(7, 67);
             this.radioButtonRunInHours.Name = "radioButtonRunInHours";
             this.radioButtonRunInHours.Size = new System.Drawing.Size(56, 17);
             this.radioButtonRunInHours.TabIndex = 1;
@@ -169,7 +171,7 @@ namespace SetupTv.Sections
             // radioButtonImmediately
             // 
             this.radioButtonImmediately.AutoSize = true;
-            this.radioButtonImmediately.Location = new System.Drawing.Point(10, 20);
+            this.radioButtonImmediately.Location = new System.Drawing.Point(7, 43);
             this.radioButtonImmediately.Name = "radioButtonImmediately";
             this.radioButtonImmediately.Size = new System.Drawing.Size(198, 17);
             this.radioButtonImmediately.TabIndex = 0;
@@ -333,6 +335,17 @@ namespace SetupTv.Sections
             this.dataGridViewRecordings.Size = new System.Drawing.Size(468, 373);
             this.dataGridViewRecordings.TabIndex = 0;
             // 
+            // radioButtonManual
+            // 
+            this.radioButtonManual.AutoSize = true;
+            this.radioButtonManual.Location = new System.Drawing.Point(7, 20);
+            this.radioButtonManual.Name = "radioButtonManual";
+            this.radioButtonManual.Size = new System.Drawing.Size(105, 17);
+            this.radioButtonManual.TabIndex = 4;
+            this.radioButtonManual.TabStop = true;
+            this.radioButtonManual.Text = "Record Manually";
+            this.radioButtonManual.UseVisualStyleBackColor = true;
+            // 
             // TvSpaceSaverSetup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -384,5 +397,6 @@ namespace SetupTv.Sections
         private System.Windows.Forms.TabPage tabPageManual;
         private DataGridView dataGridViewRecordings;
         private Button buttonProcess;
+        private RadioButton radioButtonManual;
     }
 }

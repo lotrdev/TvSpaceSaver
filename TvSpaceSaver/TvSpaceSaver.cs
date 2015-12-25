@@ -15,6 +15,7 @@ namespace TvEngine
     {
         #region Constants
 
+        private const bool DefaultManual = true;
         private const bool DefaultImmediately = true;
         private const bool DefaultRunInHours = false;
         private const int DefaultNumberOfHours = 3;
@@ -31,6 +32,7 @@ namespace TvEngine
 
         #region Members
 
+        private static bool _manual = DefaultManual;
         private static bool _immediately = DefaultImmediately;
         private static bool _runInHours = DefaultRunInHours;
         private static int _numberOfHours = DefaultNumberOfHours;
@@ -78,6 +80,12 @@ namespace TvEngine
         public bool MasterOnly
         {
             get { return false; }
+        }
+
+        internal static bool Manual
+        {
+            get { return _manual; }
+            set { _manual = value; }
         }
 
         internal static bool Immediately
@@ -193,6 +201,7 @@ namespace TvEngine
             {
                 TvBusinessLayer layer = new TvBusinessLayer();
 
+                _manual = Convert.ToBoolean(layer.GetSetting("TvSpaceSaver_Manual", DefaultManual.ToString()).Value);
                 _immediately = Convert.ToBoolean(layer.GetSetting("TvSpaceSaver_Immediately", DefaultImmediately.ToString()).Value);
                 _runInHours = Convert.ToBoolean(layer.GetSetting("TvSpaceSaver_RunInHours", DefaultRunInHours.ToString()).Value);
                 _numberOfHours = Convert.ToInt32(layer.GetSetting("TvSpaceSaver_NumberOfHours", DefaultNumberOfHours.ToString()).Value);
@@ -218,8 +227,12 @@ namespace TvEngine
             try
             {
                 TvBusinessLayer layer = new TvBusinessLayer();
+                
+                Setting setting = layer.GetSetting("TvSpaceSaver_Manual");
+                setting.Value = _manual.ToString();
+                setting.Persist();
 
-                Setting setting = layer.GetSetting("TvSpaceSaver_Immediately");
+                setting = layer.GetSetting("TvSpaceSaver_Immediately");
                 setting.Value = _immediately.ToString();
                 setting.Persist();
 
