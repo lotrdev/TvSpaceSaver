@@ -224,7 +224,7 @@ namespace SetupTv.Sections
                 for (int i = 0; i < selectedRowCount; i++)
                 {
                     Recording rec = (Recording)dataGridViewRecordings.SelectedRows[i].DataBoundItem;
-                    TvSpaceSaver.ProcessRecording(rec.FileName);
+                    TvSpaceSaver.ProcessRecording(rec);
                 }
             }
         }
