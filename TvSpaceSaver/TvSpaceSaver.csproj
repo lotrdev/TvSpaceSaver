@@ -99,6 +99,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProcessLauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TvSpaceSaver.cs" />
     <Compile Include="TvSpaceSaverSetup.cs">
