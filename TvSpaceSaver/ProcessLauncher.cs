@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using TvDatabase;
 using TvLibrary.Log;
 
 namespace TvEngine
@@ -12,6 +13,41 @@ namespace TvEngine
     class ProcessLauncher
     {
         private string _tempDirectory;
+
+        /// <summary>
+        /// Process a parameter string and replace {#} with the proper value
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="fileName"></param>
+        /// <param name="channel"></param>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public static string ProcessParameters(string input, Recording rec, string other = "")
+        {
+            string output = String.Empty;
+            string fileName = rec.FileName;
+
+            try
+            {
+                output = string.Format(
+                  input, // Format
+                  fileName, // {0} = Recorded filename (includes path)
+                  Path.GetFileName(fileName), // {1} = Recorded filename (w/o path)
+                  Path.GetFileNameWithoutExtension(fileName), // {2} = Recorded filename (w/o path or extension)
+                  Path.GetDirectoryName(fileName), // {3} = Recorded file path
+                  DateTime.Now.ToShortDateString(), // {4} = Current date
+                  DateTime.Now.ToShortTimeString(), // {5} = Current time
+                  Channel.Retrieve(rec.IdChannel), // {6} = Channel name
+                  other // {7} = extra param
+                  );
+            }
+            catch (Exception ex)
+            {
+                Log.Error("TvSpaceSaver - ProcessParameters(): {0}", ex.Message);
+            }
+
+            return output;
+        }
 
         /// <summary>
         /// Launch a process with supplied parameters and save the output to a log file if it is supplied.
@@ -104,7 +140,7 @@ namespace TvEngine
                     _tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
                     Directory.CreateDirectory(_tempDirectory);
                 }
-                return _tempDirectory;
+                return "C:\\Users\\administrator.MILLER\\AppData\\Local\\Temp\\3\\2bvb5ujf.asd";//_tempDirectory;
             }
             set { _tempDirectory = value; }
         }

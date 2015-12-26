@@ -178,18 +178,13 @@ namespace TvEngine
             {
                 try
                 {
+                    ProcessLauncher launcher = new ProcessLauncher();
                     TvServerEventArgs tvEvent = (TvServerEventArgs)eventArgs;
 
                     if (tvEvent.EventType == TvServerEventType.RecordingEnded)
                     {
-                        Channel channel = Channel.Retrieve(tvEvent.Recording.IdChannel);
+                        string parameters = ProcessLauncher.ProcessParameters(_compressParam, tvEvent.Recording);
 
-                        string parameters = ProcessParameters(_compressParam, tvEvent.Recording.FileName, channel.DisplayName, "");
-
-                        Log.Info("TvSpaceSaver: Recording ended ({0} on {1}), launching program ({2} {3}) ...",
-                                 tvEvent.Recording.FileName, channel.DisplayName, _compressProg, parameters);
-
-                        ProcessLauncher launcher = new ProcessLauncher();
                         launcher.LaunchProcess(_compressProg, parameters, Path.GetDirectoryName(_compressProg)); // Was using ProcessWindowStyle.Hidden
                     }
                 }
@@ -279,32 +274,6 @@ namespace TvEngine
             }
         }
 
-        internal static string ProcessParameters(string input, string fileName, string channel, string other)
-        {
-            string output = String.Empty;
-
-            try
-            {
-                output = string.Format(
-                  input, // Format
-                  fileName, // {0} = Recorded filename (includes path)
-                  Path.GetFileName(fileName), // {1} = Recorded filename (w/o path)
-                  Path.GetFileNameWithoutExtension(fileName), // {2} = Recorded filename (w/o path or extension)
-                  Path.GetDirectoryName(fileName), // {3} = Recorded file path
-                  DateTime.Now.ToShortDateString(), // {4} = Current date
-                  DateTime.Now.ToShortTimeString(), // {5} = Current time
-                  channel, // {6} = Channel name
-                  other // {7} = extra param
-                  );
-            }
-            catch (Exception ex)
-            {
-                Log.Error("TvSpaceSaver - ProcessParameters(): {0}", ex.Message);
-            }
-
-            return output;
-        }
-
         /// <summary>
         /// Get the string value of the directory to place log files related to the conversion
         /// of the recorded tv files. Create the path if it doesn't exist.
@@ -339,7 +308,7 @@ namespace TvEngine
             if (!File.Exists(fullPathWithoutExt + ".mkv"))
             {
                 string compressLog = GetLogPath() + Path.GetFileNameWithoutExtension(fileName) + " compress.log";
-                string compressParam = ProcessParameters(_compressParam, fileName, "", "");
+                string compressParam = ProcessLauncher.ProcessParameters(_compressParam, rec);
                 
                 result = launcher.LaunchProcess(_compressProg, compressParam, Path.GetDirectoryName(fileName), compressLog);
 
@@ -355,7 +324,7 @@ namespace TvEngine
                 // Use ComSkip to generate .cut file
                 if (!File.Exists(fullPathWithoutExt + ".cut"))
                 {
-                    string comSkipParam = ProcessParameters(_comSkipParam, fileName, "", "");
+                    string comSkipParam = ProcessLauncher.ProcessParameters(_comSkipParam, rec);
 
                     result = launcher.LaunchProcess(_comSkipProg, comSkipParam, Path.GetDirectoryName(fileName));
 
@@ -377,14 +346,14 @@ namespace TvEngine
                 // Cut commercials out of the final MKV file
                 if (_cutCommercials)
                 {
-                    string mkvSplitParam = ProcessParameters(" -o \"{3}\\{2}_split.mkv\" {7} \"{3}\\{2}.mkv\"", fileName, "", ProcessSplitParam(chapters));
+                    string mkvSplitParam = ProcessLauncher.ProcessParameters(" -o \"{3}\\{2}_split.mkv\" {7} \"{3}\\{2}.mkv\"", rec, ProcessSplitParam(chapters));
 
                     result = launcher.LaunchProcess(_mkvMergeProg, mkvSplitParam, Path.GetDirectoryName(fileName));
 
                     if (result == 0)
                     {
 
-                        mkvSplitParam = ProcessParameters(" -o \"{3}\\{2}.mkv\" {7}", fileName, "", ProcessJoinParam(fileName));
+                        mkvSplitParam = ProcessLauncher.ProcessParameters(" -o \"{3}\\{2}.mkv\" {7}", rec, ProcessJoinParam(fileName));
 
                         result = launcher.LaunchProcess(_mkvMergeProg, mkvSplitParam, Path.GetDirectoryName(fileName));
 
@@ -403,7 +372,7 @@ namespace TvEngine
                 {
                     string chapterFile = Path.GetDirectoryName(fileName) + "\\" + Path.GetFileNameWithoutExtension(fileName) + "_chapters.txt";
                     ProcessChapters(chapters, chapterFile);
-                    string mkvParam = ProcessParameters("\"--chapters\" \"{7}\" \"{3}\\{2}.mkv\"", fileName, "", chapterFile);
+                    string mkvParam = ProcessLauncher.ProcessParameters("\"--chapters\" \"{7}\" \"{3}\\{2}.mkv\"", rec, chapterFile);
 
                     result = launcher.LaunchProcess(_mkvPropEditProg, mkvParam, Path.GetDirectoryName(fileName));
 
