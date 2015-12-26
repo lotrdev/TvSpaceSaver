@@ -11,6 +11,8 @@ namespace TvEngine
     /// </summary>
     class ProcessLauncher
     {
+        private string _tempDirectory;
+
         /// <summary>
         /// Launch a process with supplied parameters and save the output to a log file if it is supplied.
         /// </summary>
@@ -86,6 +88,25 @@ namespace TvEngine
                 // Add the text to the collected output.
                 output.Append(outLine.Data + Environment.NewLine);
             }
+        }
+
+        /// <summary>
+        /// Provide access to a temprorary directory that any process being called by this instance of
+        /// ProcessLauncher can use.
+        /// </summary>
+        public string TempDirectory
+        {
+            get
+            {
+                // Create the temporary directory if it doesn't exist
+                if (_tempDirectory == null)
+                {
+                    _tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+                    Directory.CreateDirectory(_tempDirectory);
+                }
+                return _tempDirectory;
+            }
+            set { _tempDirectory = value; }
         }
     }
 }
