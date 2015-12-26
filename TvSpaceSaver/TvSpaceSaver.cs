@@ -174,26 +174,29 @@ namespace TvEngine
 
         private static void TvSpaceSaver_OnTvServerEvent(object sender, EventArgs eventArgs)
         {
-            try
+            if (!_manual)
             {
-                TvServerEventArgs tvEvent = (TvServerEventArgs)eventArgs;
-
-                if (tvEvent.EventType == TvServerEventType.RecordingEnded)
+                try
                 {
-                    Channel channel = Channel.Retrieve(tvEvent.Recording.IdChannel);
+                    TvServerEventArgs tvEvent = (TvServerEventArgs)eventArgs;
 
-                    string parameters = ProcessParameters(_compressParam, tvEvent.Recording.FileName, channel.DisplayName, "");
+                    if (tvEvent.EventType == TvServerEventType.RecordingEnded)
+                    {
+                        Channel channel = Channel.Retrieve(tvEvent.Recording.IdChannel);
 
-                    Log.Info("TvSpaceSaver: Recording ended ({0} on {1}), launching program ({2} {3}) ...",
-                             tvEvent.Recording.FileName, channel.DisplayName, _compressProg, parameters);
+                        string parameters = ProcessParameters(_compressParam, tvEvent.Recording.FileName, channel.DisplayName, "");
 
-                    ProcessLauncher launcher = new ProcessLauncher();
-                    launcher.LaunchProcess(_compressProg, parameters, Path.GetDirectoryName(_compressProg)); // Was using ProcessWindowStyle.Hidden
+                        Log.Info("TvSpaceSaver: Recording ended ({0} on {1}), launching program ({2} {3}) ...",
+                                 tvEvent.Recording.FileName, channel.DisplayName, _compressProg, parameters);
+
+                        ProcessLauncher launcher = new ProcessLauncher();
+                        launcher.LaunchProcess(_compressProg, parameters, Path.GetDirectoryName(_compressProg)); // Was using ProcessWindowStyle.Hidden
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                Log.Error("TvSpaceSaver - TvSpaceSaver_OnTvServerEvent(): {0}", ex.Message);
+                catch (Exception ex)
+                {
+                    Log.Error("TvSpaceSaver - TvSpaceSaver_OnTvServerEvent(): {0}", ex.Message);
+                }
             }
         }
 
@@ -210,7 +213,7 @@ namespace TvEngine
                 _compressProg = layer.GetSetting("TvSpaceSaver_CompressProg", DefaultCompressProg).Value;
                 _compressParam = layer.GetSetting("TvSpaceSaver_CompressParam", DefaultCompressParam).Value;
 
-                _comSkipProg = layer.GetSetting("TvSpaceSaver_ComSkipProg", DefaultCompressProg).Value;
+                _comSkipProg = layer.GetSetting("TvSpaceSaver_ComSkipProg", DefaultComSkipProg).Value;
                 _comSkipParam = layer.GetSetting("TvSpaceSaver_ComSkipParam", DefaultComSkipParam).Value;
                 _cutCommercials = Convert.ToBoolean(layer.GetSetting("TvSpaceSaver_CutCommercials", DefaultCutCommercials.ToString()).Value);
                 _processCommercials = Convert.ToBoolean(layer.GetSetting("TvSpaceSaver_ProcessCommercials", DefaultProcessCommercials.ToString()).Value);
