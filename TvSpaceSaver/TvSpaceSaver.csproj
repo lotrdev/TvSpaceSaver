@@ -7,8 +7,9 @@
     <OutputType>Library</OutputType>
     <NoStandardLibraries>false</NoStandardLibraries>
     <AssemblyName>TvSpaceSaver</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -18,6 +19,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -26,6 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <RootNamespace>TvSpaceSaver</RootNamespace>
@@ -38,6 +41,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -47,27 +51,32 @@
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Utils, Version=1.12.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Common.Utils.dll</HintPath>
+    <Reference Include="Common.Utils, Version=1.12.100.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.1\lib\net40\Common.Utils.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Gentle.Common, Version=1.5.0.29113, Culture=neutral, PublicKeyToken=80b5de62e27be49b, processorArchitecture=MSIL">
-      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Gentle.Common.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.1\lib\net40\Gentle.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Gentle.Framework, Version=1.5.0.29113, Culture=neutral, PublicKeyToken=80b5de62e27be49b, processorArchitecture=MSIL">
-      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\Gentle.Framework.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.1\lib\net40\Gentle.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PluginBase, Version=1.12.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\PluginBase.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.1\lib\net40\PluginBase.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SetupControls, Version=1.12.100.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\SetupControls.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.1\lib\net40\SetupControls.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -78,20 +87,24 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="TMDbLib, Version=0.8.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TMDbLib.0.8.3\lib\net45\TMDbLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="TvBusinessLayer, Version=1.12.100.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvBusinessLayer.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.1\lib\net40\TvBusinessLayer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="TvControl, Version=1.12.100.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvControl.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.1\lib\net40\TvControl.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="TVDatabase, Version=1.12.100.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TVDatabase.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.1\lib\net40\TVDatabase.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="TvLibrary.Interfaces, Version=1.12.100.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.0\lib\net40\TvLibrary.Interfaces.dll</HintPath>
+      <HintPath>..\packages\MediaPortal.TvEngine3.Plugin.1.12.1\lib\net40\TvLibrary.Interfaces.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="TvLibrary.Utils">
@@ -115,7 +128,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
